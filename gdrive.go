@@ -618,9 +618,10 @@ func (d *GDriver) Open(name string) (afero.File, error) {
 
 // OpenFile opens a File in the traditional os.Open way
 func (d *GDriver) OpenFile(path string, flag int, _ os.FileMode) (afero.File, error) {
-	if path == "" {
-		return nil, ErrEmptyPath
-	}
+	//INFO: With this logic we cannot list root
+	// if path == "" {
+	// 	return nil, ErrEmptyPath
+	// }
 
 	if flag&os.O_RDWR != 0 {
 		return nil, ErrReadAndWriteNotSupported

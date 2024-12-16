@@ -11,3 +11,18 @@ func RootDirectory(path string) Option {
 		return err
 	}
 }
+
+func RootDirectoryById(fileId string) Option {
+	return func(driver *GDriver) error {
+		rootFile, err := driver.srv.Files.Get(fileId).Do()
+		if err != nil {
+			return err
+		}
+
+		driver.rootNode = &FileInfo{
+			file:       rootFile,
+			parentPath: "",
+		}
+		return nil
+	}
+}
